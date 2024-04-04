@@ -47,6 +47,8 @@ function MovieDetails({
     onCloseMovieDetails();
   }
 
+  useKeyDown("Escape", onCloseMovieDetails);
+
   useEffect(
     function () {
       (async function fetchMovieDetails() {
@@ -64,7 +66,12 @@ function MovieDetails({
     [selectedMovieId]
   );
 
-  useKeyDown("Escape", onCloseMovieDetails);
+  useEffect(() => {
+    if (!title) return;
+    document.title = `Movie | ${title}`;
+
+    return () => (document.title = "usePopcorn");
+  });
 
   return (
     <div className="details">
